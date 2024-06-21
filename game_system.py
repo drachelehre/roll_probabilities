@@ -26,9 +26,9 @@ class DungeonPath:
         super().__init__()
 
     def roll(self, die):
-        hit = int(random.random(1, 20))
+        #hit = int(random.random(1, 20))
         if die not in dice_list:
             raise ValueError('Error: Not a valid die')
-        damage = int(random.random(1, dice_list[die]))
-        return hit, damage
+        #damage = int(random.random(1, dice_list[die]))
+        #return hit, damage
 
