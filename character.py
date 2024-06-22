@@ -1,5 +1,6 @@
 import game_system
-from game_system import System, DungeonPath, SixSiders, FireMasque, DungeonCoach
+from game_system import DungeonPath, SixSiders, FireMasque, DungeonCoach
+
 
 class Character:
     def __init__(self, name, level=1, bonus=0, weapons=None, spells=None, system=None):
@@ -38,10 +39,10 @@ class Character:
             raise ValueError('Error: weapon not held by character')
         hit_count = 0
         damage_count = 0
-        die_size = game_system.dice_list.get(die, 20)  # Default to d20 if die is None
+        die_size = game_system.dice_list.get('d20')
         hit_probability = self.calculate_hit_probability(die_size, difficulty)
 
-        if not isinstance(system_used, DungeonCoach):
+        if not isinstance(system_used, DungeonCoach) and not isinstance(system_used, FireMasque):
             for i in range(num_attacks):
                 roll = system_used.roll(die)
                 result = roll[0] + self.bonus
@@ -49,7 +50,8 @@ class Character:
                     damage_count += roll[1]
             probability = hit_probability**num_attacks
             return f'{probability:.2f}% chance to hit, potential {damage_count} damage from {num_attacks} {weapon} attacks (Hit probability per attack: {hit_probability:.2%})'
-        else:
+
+        if isinstance(system_used, DungeonCoach):
             for i in range(num_attacks):
                 roll = system_used.roll()
                 result = roll + self.bonus
