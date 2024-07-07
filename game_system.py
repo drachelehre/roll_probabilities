@@ -23,7 +23,7 @@ dice_list = {
 }
 
 
-class DungeonPath(System):
+class D20Sys(System):
     def __init__(self, name, dice):
         super().__init__(name, dice)
 
@@ -35,7 +35,7 @@ class DungeonPath(System):
         return hit, damage
 
 
-class SixSiders(System):
+class D6Sys(System):
     def __init__(self, name, dice):
         super().__init__(name, dice)
 
@@ -47,7 +47,7 @@ class SixSiders(System):
         return hit, damage
 
 
-class FireMasque(System):
+class D100Sys(System):
     def __init__(self, name, dice):
         super().__init__(name, dice)
 

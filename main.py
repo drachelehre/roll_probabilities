@@ -1,5 +1,3 @@
-import game_system
-from game_system import System, DungeonPath
 from character import Character
 
 
@@ -7,6 +5,7 @@ def main():
 
     name = input("What's the character's name? ")
     level = int(input("What's their level? "))
+    bonus = int(input('What is the general bonus to the attacks? '))
     add_weapon = False
     weapon_ask = input("Want to add some weapons?(y/n)")
     if weapon_ask != 'y' and weapon_ask != 'Y' and weapon_ask != 'n' and weapon_ask != 'N':
@@ -39,7 +38,7 @@ def main():
             add_spell = False
     print("Current Game systems: \"D&D\", \"Pathfinder\", \"World of Darkness\", \"DC20\"")
     system = input('Which one would you like? ')
-    new_character = Character(name, level, 3, weapons, spells, system)
+    new_character = Character(name, level, bonus, weapons, spells, system)
     target = int(input('What\'s your target? '))
     print(new_character.attack('dagger', 2, target, 'd4'))
 
