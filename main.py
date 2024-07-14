@@ -39,8 +39,31 @@ def main():
     print("Current Game systems: \"D&D\", \"Pathfinder\", \"World of Darkness\", \"DC20\"")
     system = input('Which one would you like? ')
     new_character = Character(name, level, bonus, weapons, spells, system)
-    target = int(input('What\'s your target? '))
-    print(new_character.attack('dagger', 2, target, 'd4'))
+    while True:
+        spell_or_attack = input("Is this a (s)pell or an (a)ttack? ")
+        if spell_or_attack == "a":
+            target = int(input('What\'s your target? '))
+            print ("Your weapons:")
+            for w in weapons:
+                print(w)
+            weapon = input("What weapon are you using? ")
+            die = input("What is the damage die? (use d# format) ")
+            print(new_character.attack(weapon, bonus, target, die))
+        if spell_or_attack == "s":
+            target = int(input('What\'s your target? '))
+            print("Your spells:")
+            for w in weapons:
+                print(w)
+            weapon = input("What spell are you using? ")
+            die = input("What is the damage die? (use d# format) ")
+            print(new_character.attack(weapon, bonus, target, die))
+        again = input("Want to find another possible move? (y/n) ")
+        if again != 'y' and again != 'Y' and again != 'n' and again != 'N':
+            raise Exception("Error: invalid response")
+        elif again == "y" and again == "Y":
+            continue
+        else:
+            break
 
 
 if __name__ == "__main__":
