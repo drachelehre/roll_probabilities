@@ -104,14 +104,17 @@ class Character:
             raise ValueError('Error: spell not known by character')
 
         # spells that use systems that use 20-sided dice
-        if isinstance(system_used, D20Sys):
+        if isinstance(system_used, D20Sys) or isinstance(system_used, DungeonCoach):
             die_size = game_system.dice_list.get('d20')
             hit_probability = self.calculate_hit_probability_inverse(die_size, difficulty)
-            probability = hit_probability
-            return f'{probability:.2f}% chance to hit {spell})'
+            return f'{hit_probability:.2f}% chance to hit {spell})'
 
         if isinstance(system_used, D100Sys):
             die_size = game_system.dice_list.get('d20')
             hit_probability = self.calculate_hit_probability_inverse(die_size, difficulty)
-            probability = hit_probability
-            return f'{probability:.2f}% chance to hit {spell})'
+            return f'{hit_probability:.2f}% chance to hit {spell})'
+
+        if isinstance(system_used, D6Sys):
+            die_size = game_system.dice_list.get('d20')
+            hit_probability = self.calculate_hit_probability_inverse(die_size, difficulty)
+            return f'{hit_probability:.2f}% chance to hit {spell})'
