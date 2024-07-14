@@ -52,7 +52,7 @@ class Character:
         damage_count = 0
 
         # attacks that use systems that use 20-sided dice
-        if not isinstance(system_used, DungeonCoach) and not isinstance(system_used, D100Sys):
+        if isinstance(system_used, D20Sys):
             die_size = game_system.dice_list.get('d20')
             hit_probability = self.calculate_hit_probability(die_size, difficulty)
             for i in range(num_attacks):
@@ -77,7 +77,7 @@ class Character:
 
         if isinstance(system_used, D100Sys):
             die_size = game_system.dice_list.get('d6')
-            hit_probability = self.calculate_hit_probability(die_size, difficulty)
+            hit_probability = self.calculate_hit_probability_inverse(die_size, difficulty)
             for i in range(num_attacks):
                 roll = system_used.roll(die)
                 result = roll[0] + self.bonus
@@ -98,14 +98,20 @@ class Character:
             probability = hit_probability**num_attacks
             return f'{probability:.2f}% chance to hit all {num_attacks} {weapon} attacks (Hit probability per attack: {hit_probability:.2%})'
 
-    def cast_spell(self, spell, difficulty, die=None):
+    def cast_spell(self, spell, difficulty):
         system_used = self.use_system(self.system)
         if spell not in self.spells:
-            raise ValueError('Error: weapon not held by character')
+            raise ValueError('Error: spell not known by character')
 
-        # attacks that use systems that use 20-sided dice
-        if not isinstance(system_used, DungeonCoach) and not isinstance(system_used, D100Sys):
+        # spells that use systems that use 20-sided dice
+        if isinstance(system_used, D20Sys):
             die_size = game_system.dice_list.get('d20')
-            hit_probability = self.calculate_hit_probability(die_size, difficulty)
+            hit_probability = self.calculate_hit_probability_inverse(die_size, difficulty)
+            probability = hit_probability
+            return f'{probability:.2f}% chance to hit {spell})'
+
+        if isinstance(system_used, D100Sys):
+            die_size = game_system.dice_list.get('d20')
+            hit_probability = self.calculate_hit_probability_inverse(die_size, difficulty)
             probability = hit_probability
             return f'{probability:.2f}% chance to hit {spell})'

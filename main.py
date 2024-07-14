@@ -2,7 +2,6 @@ from character import Character
 
 
 def main():
-
     name = input("What's the character's name? ")
     level = int(input("What's their level? "))
     bonus = int(input('What is the general bonus to the attacks? '))
@@ -50,13 +49,12 @@ def main():
             die = input("What is the damage die? (use d# format) ")
             print(new_character.attack(weapon, bonus, target, die))
         if spell_or_attack == "s":
-            target = int(input('What\'s your target? '))
+            target = int(input('What\'s the target? '))
             print("Your spells:")
             for w in weapons:
                 print(w)
-            weapon = input("What spell are you using? ")
-            die = input("What is the damage die? (use d# format) ")
-            print(new_character.attack(weapon, bonus, target, die))
+            spell = input("What spell are you using? ")
+            print(new_character.cast_spell(spell, target))
         again = input("Want to find another possible move? (y/n) ")
         if again != 'y' and again != 'Y' and again != 'n' and again != 'N':
             raise Exception("Error: invalid response")
